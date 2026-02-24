@@ -130,17 +130,41 @@ This helper sheet contains two data blocks that feed the two charts:
 
 **Block 1 — Monthly (rows 2–25):**
 ```
-=IF(Dashboard!N11="All Year", SUMIF(...monthly sales...), NA())
+=IF(Dashboard!N10="All Year", SUMIF(...monthly sales...), NA())
 ```
 When "All Year" → returns 24 monthly sales values  
 When a month is selected → returns `NA()` for all 24 rows
 
 **Block 2 — Weekly (rows 28–31):**
 ```
-=IF(Dashboard!N11="All Year", NA(), SUMPRODUCT(...weekly sales for selected month...))
+=IF(Dashboard!N10="All Year", NA(), SUMPRODUCT(...weekly sales for selected month...))
 ```
 When "All Year" → returns `NA()` for all 4 rows  
 When a month is selected → returns 4 weekly sales values (Week 1–4)
+
+**In the VBA - wrote the following code**
+```
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+    If Not Intersect(Target, Range("N10")) Is Nothing Then
+        
+        If Range("N10").Value = "All Year" Then
+            
+            Me.ChartObjects("chtYear").Visible = True
+            Me.ChartObjects("chtMonth").Visible = False
+            
+        Else
+            
+            Me.ChartObjects("chtYear").Visible = False
+            Me.ChartObjects("chtMonth").Visible = True
+            
+        End If
+        
+    End If
+
+End Sub
+
+```
 
 ### The `Filter_Data` sheet
 
