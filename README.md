@@ -2,7 +2,6 @@
 An interactive Excel dashboard built to answer one question at a glance:
 **"Are we performing well this month?"**
 
-![Dashboard Preview](dashboard_preview.png)
 
 ---
 
